@@ -1,0 +1,24 @@
+main.py buildozer.spec.github/workflows/blank.yml[app]
+title = HUSSNAIN CHEEMA
+package.name = hussnaincheema
+package.domain = org.test
+source.include_exts = py,png,jpg,kv,atlas
+version = 0.1
+requirements = python3,kivy
+android.permissions = INTERNET
+name: Build APK
+on: push
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build with Buildozer
+        uses: ArtemSBulgakov/buildozer-action@v1
+        with:
+          command: buildozer android debug
+      - name: Upload APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: package
+          path: bin/*.apk
